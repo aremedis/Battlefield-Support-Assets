@@ -1,3 +1,5 @@
 *.png
 DataStructure.json
 *.jpg
+*.credentials
+*.zip
