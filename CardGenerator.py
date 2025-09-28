@@ -1,5 +1,5 @@
 from PIL import Image, ImageDraw, ImageFont
-import requests, csv, json
+import requests, csv, json, shutil, os
 
 
 SPREADSHEET_ID = "1Jaap6i1qZYRc0teWCWSnlhN34XVutBTg8gL__TuXefI"
@@ -16,10 +16,10 @@ else:
     print(f"Error: {response.status_code}")
 
 
-open('BSP.csv', 'wb').write(response.content)
+open('BSP/BSP.csv', 'wb').write(response.content)
 
-csv_file_path = 'BSP.csv'
-json_file_path = 'BSP.json'
+csv_file_path = 'BSP/BSP.csv'
+json_file_path = 'BSP/BSP.json'
 
 PrinterFriendlyBackground=(255,255,255)
 DarkGrey = (25,25,25)
@@ -144,7 +144,7 @@ def CreateCard(cost, name, mp, tmm, range, skill, damage, check, threshold, spec
 convert_to_json(csv_file_path, json_file_path)
 
 
-with open('data.json', 'r') as file:
+with open('BSP/data.json', 'r') as file:
     data = json.load(file)
 
 # print(data)
@@ -173,3 +173,8 @@ for i in range(len(data)-1):
 #CreateCard("58", "LRM Carrier", "Arrow IV Carrier", "3t", "+1", "Arrow", "6", "--", "7", "5", "Arrow2" )
 
 
+######
+# Create .zip archive from 'cards/' directory
+######
+shutil.make_archive('BSP_Cards','zip', 'cards')
+print(f"Successfully created ZIP file")
