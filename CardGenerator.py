@@ -1,5 +1,5 @@
 from PIL import Image, ImageDraw, ImageFont
-import requests, csv, json, shutil, os
+import requests, csv, json, shutil, os, re
 
 
 SPREADSHEET_ID = "1Jaap6i1qZYRc0teWCWSnlhN34XVutBTg8gL__TuXefI"
@@ -51,6 +51,12 @@ wtSkillPos = (206, 342)
 wtDMGPos = (360, 342)
 wtCheckPos = (490, 342)
 wtSpecialPos = (194 ,400)
+
+def sanitize_name_text(text):
+    pattern = r'[^a-zA-Z0-9/s]'
+    cleaned_txt = re.sub(pattern, '', text)
+    cleaned_txt = cleaned_txt.replace("/", "")
+    return cleaned_txt
 
 def convert_to_json(csv_file_path, json_file_path):
     data = []
@@ -165,7 +171,8 @@ for i in range(len(data)-1):
 #     specials = entry['Special']
 
     entry = data[i]
-    CreateCard(str(entry['Cost']),str(entry['Name']),str(entry['MP']),str(entry['TMM']),str(entry['Range']),
+    name = sanitize_name_text(str(entry['Name']))
+    CreateCard(str(entry['Cost']),name,str(entry['MP']),str(entry['TMM']),str(entry['Range']),
            str(entry['Skill']),str(entry['Damage']),str(entry['Check']),str(entry['Thresh']),str(entry['Special']),ImageDimensions(CardWidth,CardHeight))
 
 
