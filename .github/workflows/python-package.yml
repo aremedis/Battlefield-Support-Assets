@@ -2,6 +2,8 @@ name: Run and create artifact
 
 on:
   push:
+    tags:
+      - 'v*'
     branches:
       - main
 
