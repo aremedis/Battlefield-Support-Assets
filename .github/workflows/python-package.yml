@@ -28,6 +28,13 @@ jobs:
       - name: Upload result as an artifact
         uses: actions/upload-artifact@v4
         with:
-          name: generated-zip
+          name: BSP-Cards
           path: BSP_Cards.zip
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: |
+            BSP_Cards.zip
+        
 
