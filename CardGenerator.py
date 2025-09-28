@@ -144,7 +144,7 @@ def CreateCard(cost, name, mp, tmm, range, skill, damage, check, threshold, spec
 convert_to_json(csv_file_path, json_file_path)
 os.makedirs('cards', exist_ok=True)
 
-with open('data.json', 'r') as file:
+with open('BSP.json', 'r') as file:
     data = json.load(file)
 
 # print(data)
