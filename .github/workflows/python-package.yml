@@ -32,6 +32,8 @@ jobs:
           path: BSP_Cards.zip
 
       - name: Create Release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         uses: softprops/action-gh-release@v1
         with:
           files: |
