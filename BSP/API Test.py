@@ -1,12 +1,10 @@
-import os
-import requests
+import requests, csv, json
 
-SPREADSHEET_ID =  os.environ['SPREADSHEET_ID']
-API_KEY = os.environ['API_KEY']
+
+SPREADSHEET_ID = "1Jaap6i1qZYRc0teWCWSnlhN34XVutBTg8gL__TuXefI"
+sheet_address=f"https://docs.google.com/spreadsheets/d/{SPREADSHEET_ID}/export?format=csv&id={SPREADSHEET_ID}&gid=0"
 
 SheetName = "BSAs"
-
-sheet_address = f"https://sheets.googleapis.com/v4/spreadsheets/{SPREADSHEET_ID}/values/{SheetName}?key={API_KEY}"
 
 
 response = requests.get(sheet_address)
@@ -16,31 +14,44 @@ if response.status_code == 200:
 else:
     print(f"Error: {response.status_code}")
 
-data = response.json()
-entries = data["values"]
-# print (data["values"])
 
-column_header = data["values"][0]
-print (column_header)
-for row in range(1, len(entries)):
-    # print (entries[row])
-    BSP_NAME = entries[row][0]
-    BSP_COST = entries[row][1]
-    BSP_SKILL = entries[row][2]
-    BSP_MOVE = entries[row][3]
-    BSP_TMM = entries[row][4]
-    BSP_RANGE = entries[row][5]
-    BSP_DMG = entries[row][6]
-    BSP_THRESH = entries[row][7]
-    BSP_SPECIAL = entries[row][8]
+open('BSP.csv', 'wb').write(response.content)
+
+# Convert csv to json
+def convert_to_json(csv_file_path, json_file_path):
+    data = []
+    with open(csv_file_path, 'r', newline='', encoding='utf-8') as csvfile:
+        csv_reader = csv.DictReader(csvfile)
+        for row in csv_reader:
+            data.append(row)
+
+    with open(json_file_path, 'w', encoding='utf-8') as jsonfile:
+        json.dump(data, jsonfile, indent=4)
+
+csv_file_path = 'BSP.csv'
+json_file_path = 'BSP.json'
+
+convert_to_json(csv_file_path, json_file_path)
 
 
-# data["values"][x][0] == "Name"
-# data["values"][x][1] == "Cost"
-# data["values"][x][2] == "Skill"
-# data["values"][x][3] == "MovementPoints"
-# data["values"][x][4] == "TMM"
-# data["values"][x][5] == "Range"
-# data["values"][x][6] == "Damage"
-# data["values"][x][7] == "Threshold"
-# data["values"][x][8] == "Special"
+
+with open('BSP.json', 'r') as file:
+    data = json.load(file)
+
+#$data = open('BSP.json', 'r')
+# entries = data["values"]
+print (data[0]['Name'])
+print(len(data))
+# data[x]['Name']
+# data[x]['Cost']
+# data[x]['Skill']
+# data[x]['MP']
+# data[x]['TMM']
+# data[x]['Range']
+# data[x]['Damage']
+# data[x]['Check']
+# data[x]['Thresh']
+# data[x]['Special']
+
+
+
