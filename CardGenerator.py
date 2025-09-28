@@ -53,9 +53,9 @@ wtCheckPos = (490, 342)
 wtSpecialPos = (194 ,400)
 
 def sanitize_name_text(text):
-    pattern = r'[^a-zA-Z0-9/s]'
-    cleaned_txt = re.sub(pattern, '', text)
-    cleaned_txt = cleaned_txt.replace("/", "")
+    #pattern = r'[^a-zA-Z0-9/s]'
+    #cleaned_txt = re.sub(pattern, '', text)
+    cleaned_txt = text.replace("/", "")
     return cleaned_txt
 
 def convert_to_json(csv_file_path, json_file_path):
