@@ -16,10 +16,10 @@ else:
     print(f"Error: {response.status_code}")
 
 
-open('BSP/BSP.csv', 'wb').write(response.content)
+open('BSP.csv', 'wb').write(response.content)
 
-csv_file_path = 'BSP/BSP.csv'
-json_file_path = 'BSP/BSP.json'
+csv_file_path = 'BSP.csv'
+json_file_path = 'BSP.json'
 
 PrinterFriendlyBackground=(255,255,255)
 DarkGrey = (25,25,25)
@@ -142,9 +142,9 @@ def CreateCard(cost, name, mp, tmm, range, skill, damage, check, threshold, spec
 #   img.show()
 
 convert_to_json(csv_file_path, json_file_path)
+os.makedirs('cards', exist_ok=True)
 
-
-with open('BSP/data.json', 'r') as file:
+with open('data.json', 'r') as file:
     data = json.load(file)
 
 # print(data)
