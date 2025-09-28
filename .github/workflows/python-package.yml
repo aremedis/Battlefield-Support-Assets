@@ -39,7 +39,6 @@ jobs:
         with:
           name: Release
           tag_name: v1
-          files: |
-            BSP_Cards.zip
+          files: BSP_Cards.zip
         
 
