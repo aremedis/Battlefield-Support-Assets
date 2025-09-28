@@ -1,5 +1,6 @@
 name: Run and create artifact
-
+permissions:
+  contents: write
 on:
   push:
     branches:
@@ -34,8 +35,6 @@ jobs:
       - name: Create Release
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        permissions:
-          contents: write
         uses: softprops/action-gh-release@v1
         with:
           name: Release
