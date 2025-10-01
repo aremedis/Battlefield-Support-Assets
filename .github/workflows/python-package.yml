@@ -3,7 +3,7 @@ permissions:
   contents: write
 on:
   schedule:
-    - cron: '0 3 * * *' # run daily at midnight UTC
+    - cron: '22 3 * * *' # run daily at 0330 UTC
 
 jobs:
   build:
