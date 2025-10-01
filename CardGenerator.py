@@ -198,6 +198,8 @@ for i in range(len(data)-1):
         name = tempname[0]
         variant = "("+tempname[1]
     # print(name)
+    if (name == "CI "):
+        name = "Conventional Infantry "
     CreateCard(
         str(entry['Cost']),
         name,
