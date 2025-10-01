@@ -184,7 +184,7 @@ for i in range(len(data)-1):
 #     skill = entry['Skill']
 #     mp = entry['MP']
 #     tmm = entry['TMM']
-#     wrange = entry['Range']
+#     range = entry['Range']
 #     damage = entry['Damage']
 #     check = entry['Check']
 #     threshold = entry['Thresh']
@@ -198,8 +198,10 @@ for i in range(len(data)-1):
         name = tempname[0]
         variant = "("+tempname[1]
     # print(name)
+    #Remove abbreviation for Conventional Infantry
     if (name == "CI "):
         name = "Conventional Infantry "
+    # Begin Card Creation
     CreateCard(
         str(entry['Cost']),
         name,
