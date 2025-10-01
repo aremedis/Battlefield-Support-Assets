@@ -3,7 +3,7 @@ permissions:
   contents: write
 on:
   schedule:
-    - cron: '0 0 * * 1' # run every monday
+    - cron: '0 0 * * *' # run daily at midnight UTC
 
 jobs:
   build:
