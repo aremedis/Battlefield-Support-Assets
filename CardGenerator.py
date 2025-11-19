@@ -4,7 +4,10 @@ from PIL import Image, ImageDraw, ImageFont
 import requests, csv, json, shutil, os, re, textwrap
 
 
-SPREADSHEET_ID = "1Jaap6i1qZYRc0teWCWSnlhN34XVutBTg8gL__TuXefI"
+#SPREADSHEET_ID = "1Jaap6i1qZYRc0teWCWSnlhN34XVutBTg8gL__TuXefI"
+
+#test spreadsheet
+SPREADSHEET_ID = "1hXHWGjTCoqOLVbnWopZSgtz-Peo3BRwmZUGQzBsE8mU"
 sheet_address=f"https://docs.google.com/spreadsheets/d/{SPREADSHEET_ID}/export?format=csv&id={SPREADSHEET_ID}&gid=0"
 
 SheetName = "BSAs"
@@ -54,6 +57,16 @@ wtDMGPos = (360, 342)
 wtCheckPos = (490, 342)
 wtSpecialPos = (194 ,400)
 
+#Aerospace Card locations
+AeroSkillPos = RangePos
+AeroDMGPos = SkillPos
+AeroCheckPos = DMGPos
+AerowtSkillPos = wtRangePos
+AerowtDMGPos = wtSkillPos
+AerowtCheckPos = wtDMGPos
+
+AeroThrPos = mpPos
+AeroFuelPos = tmmPos
 
 def split_name_and_variant(name):
     delimiter = "("
@@ -115,7 +128,42 @@ def ThresholdBox(draw):
     shape = [(538,302), (628,348)]
     draw.rectangle(shape, fill=(100,100,100))
 
+def FuelBox(draw, fuel):
+    BoxesPerRow = 4
+    margin = 2
+    initX = 490
+    initY = 299
+    current_x = initX
+    current_y = initY
+    boxSize = 10
+    for i in (range(8)):
+        x0 = current_x
+        y0 = current_y
+        x1 = current_x + boxSize
+        y1 = current_y + boxSize
 
+        draw.rectangle([(x0,y0), (x1, y1)], outline = 'black')
+
+        if (i+1) % BoxesPerRow == 0:
+            current_x = initX 
+            current_y += boxSize + margin
+        else: 
+            current_x += boxSize + margin
+        
+def CreateAeroCard(cost, name, variant, fuel, skill, damage, check, threshold, specials, thrust, dimensions):
+    image_path = "cards/"+name+variant+".jpg"
+    Image.new('RGB', dimensions, color = Background).save(image_path)
+    img = Image.open(image_path)
+    draw = ImageDraw.Draw(img)
+    anchor = 'lb'
+    AddText("SKILL", 34, YellowText, AeroSkillPos, draw, anchor)
+    AddText("DMG", 34, YellowText, AeroDMGPos, draw, anchor)
+    AddText("CHECK", 34, YellowText, AeroCheckPos, draw, anchor)
+    AddText("SPECIALS:", 28, YellowText,SpecialsPos, draw, anchor)
+    AddText("THR", 34, YellowText, AeroThrPos, draw, anchor)
+    AddText("Fuel", 34, YellowText, AeroFuelPos, draw, anchor)
+    img.save(image_path)
+    img.show()
 
 def CreateCard(cost, name, variant, mp, tmm, range, skill, damage, check, threshold, specials, dimensions):
     image_path = "cards/"+name+variant+".jpg"
@@ -202,7 +250,24 @@ for i in range(len(data)-1):
     if (name == "CI "):
         name = "Conventional Infantry "
     # Begin Card Creation
-    CreateCard(
+    print(entry['Fuel'])
+    print(name)
+    if (str(entry['Fuel']) != ""):
+        CreateAeroCard(
+            str(entry['Cost']),
+            name,
+            variant,
+            str(entry['Fuel']),
+            str(entry['Skill']),
+            str(entry['Damage']),
+            str(entry['Check']),
+            str(entry['Thresh']),
+            str(entry['Special']),
+            str(entry['Thrust']),
+            ImageDimensions(CardWidth,CardHeight)
+            )
+    else:    
+        CreateCard(
         str(entry['Cost']),
         name,
         variant,
