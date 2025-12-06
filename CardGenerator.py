@@ -3,11 +3,13 @@ from tempfile import tempdir
 from PIL import Image, ImageDraw, ImageFont
 import requests, csv, json, shutil, os, re, textwrap
 
-
-#SPREADSHEET_ID = "1Jaap6i1qZYRc0teWCWSnlhN34XVutBTg8gL__TuXefI"
+#prod spreadsheet
+SPREADSHEET_ID = "1Jaap6i1qZYRc0teWCWSnlhN34XVutBTg8gL__TuXefI"
 
 #test spreadsheet
-SPREADSHEET_ID = "1U03ZPE3a4phu1a1YQLw2QUTw9GzDKt8SO0OOEgBEyX4"
+#SPREADSHEET_ID = "1U03ZPE3a4phu1a1YQLw2QUTw9GzDKt8SO0OOEgBEyX4"
+
+
 sheet_address=f"https://docs.google.com/spreadsheets/d/{SPREADSHEET_ID}/export?format=csv&id={SPREADSHEET_ID}&gid=0"
 
 SheetName = "BSAs"
