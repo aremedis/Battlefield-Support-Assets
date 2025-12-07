@@ -187,7 +187,7 @@ def FuelBox(draw, fuel):
             current_x += boxSize + margin
         
 def CreateAeroCard(cost, name, variant, fuel, skill, damage, check, threshold, specials, thrust, dimensions):
-    image_path = "cards/AS/"+name+variant+".jpg"
+    image_path = "cards/aero/"+name+variant+".jpg"
     Image.new('RGB', dimensions, color = Background).save(image_path)
     img = Image.open(image_path)
     draw = ImageDraw.Draw(img)
@@ -283,6 +283,7 @@ def CreateCard(cost, name, variant, mp, tmm, range, skill, damage, check, thresh
 
 convert_to_json(csv_file_path, json_file_path)
 os.makedirs('cards', exist_ok=True)
+os.makedirs('cards/aero', exist_ok=True)
 
 with open('BSP.json', 'r') as file:
     data = json.load(file)
