@@ -316,8 +316,8 @@ for i in range(len(data)):
     if (name == "CI "):
         name = "Conventional Infantry "
     # Begin Card Creation
-    print(entry['Fuel'])
-    print(name)
+    #print(entry['Fuel'])
+    #print(name)
     if (str(entry['Fuel']) != ""):
         CreateAeroCard(
             str(entry['Cost']),
