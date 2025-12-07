@@ -39,5 +39,12 @@ jobs:
           name: Release
           tag_name: v1
           files: BSP_Cards.zip
-        
+      
+      - name: Send Discord notification on failure
+        if: failure()
+        uses: BubbleProd/discord-webhook-notify@v2
+        with:
+          webhookURL: ${{ secrets.DISCORDSECRET }}
+          message: "GitHub Actions build failed for ${{ github.repository }} on branch ${{ github.ref_name }}! See workflow run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+
 
