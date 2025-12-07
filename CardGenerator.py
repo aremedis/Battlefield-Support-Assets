@@ -86,6 +86,18 @@ def sanitize_name_text(text):
     cleaned_txt = text.replace("/", "")
     return cleaned_txt
 
+def clean_up_files(filepath):
+    if os.path.exists(filepath):
+        try:
+            os.remove(filepath)
+            print (f"File '{filepath}' deleted successfully.")
+        except PermissionError:
+            print(f"Permission denied: Unable to delete '{filepath}'.")
+        except Exception as e:
+            print (f"An error occurred while deleting '{filepath}': {e}")
+    else:
+        print(f"File '{filepath}' does not exist.")
+
 def convert_to_json(csv_file_path, json_file_path):
     data = []
     with open(csv_file_path, 'r', newline='', encoding='utf-8') as csvfile:
@@ -351,6 +363,11 @@ for i in range(len(data)):
 
 
 #CreateCard("58", "LRM Carrier", "Arrow IV Carrier", "3t", "+1", "Arrow", "6", "--", "7", "5", "Arrow2" )
+######
+# Clean up .csv and .json files
+######
+clean_up_files(json_file_path)
+clean_up_files(csv_file_path)
 
 
 ######
