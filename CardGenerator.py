@@ -4,11 +4,13 @@ from PIL import Image, ImageDraw, ImageFont
 import requests, csv, json, shutil, os, re, textwrap
 
 #prod spreadsheet
-SPREADSHEET_ID = "1Jaap6i1qZYRc0teWCWSnlhN34XVutBTg8gL__TuXefI"
+#SPREADSHEET_ID = "1Jaap6i1qZYRc0teWCWSnlhN34XVutBTg8gL__TuXefI"
 
 #test spreadsheet
 #SPREADSHEET_ID = "1U03ZPE3a4phu1a1YQLw2QUTw9GzDKt8SO0OOEgBEyX4"
 
+#dropship spreadsheet
+SPREADSHEET_ID = "1N2AvvEt-PK7aUOBAabUCtw1NhJVnCfYy6lMbFtQxGj8"
 
 sheet_address=f"https://docs.google.com/spreadsheets/d/{SPREADSHEET_ID}/export?format=csv&id={SPREADSHEET_ID}&gid=0"
 
@@ -331,20 +333,21 @@ for i in range(len(data)):
     # Begin Card Creation
     #print(entry['Fuel'])
     #print(name)
-    if (str(entry['Fuel']) != ""):
-        CreateAeroCard(
-            str(entry['Cost']),
-            name,
-            variant,
-            str(entry['Fuel']),
-            str(entry['Skill']),
-            str(entry['Damage']),
-            str(entry['Check']),
-            str(entry['Thresh']),
-            str(entry['Special']),
-            str(entry['Thrust']),
-            ImageDimensions(CardWidth,CardHeight)
-            )
+    if 'Fuel' in entry:
+        if (str(entry['Fuel']) != ""):
+            CreateAeroCard(
+                str(entry['Cost']),
+                name,
+                variant,
+                str(entry['Fuel']),
+                str(entry['Skill']),
+                str(entry['Damage']),
+                str(entry['Check']),
+                str(entry['Thresh']),
+                str(entry['Special']),
+                str(entry['Thrust']),
+                ImageDimensions(CardWidth,CardHeight)
+                )
     else:    
         CreateCard(
         str(entry['Cost']),
